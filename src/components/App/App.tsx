@@ -5,9 +5,11 @@ import Home from '../Home/Home';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className="App d-flex flex-column min-vh-100">
       <Header />
-      <Home />
+      <div className="content wrapper flex-grow-1">
+        <Home />
+      </div>
       <Footer />
     </div>
   );
