@@ -1,4 +1,5 @@
 import React from 'react';
+import './Docs.scss';
 
 const Docs: React.FC = () => {
   return (
