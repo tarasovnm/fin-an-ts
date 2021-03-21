@@ -2,7 +2,7 @@ import React from 'react';
 
 const Docs: React.FC = () => {
   return (
-    <div>
+    <div className="docs-page container pt-4">
       <h1>Основные понятия и определения</h1>
     </div>
   );
