@@ -1,6 +1,11 @@
 import React from 'react';
 
-const YearPicker: React.FC = () => {
+interface YearPickerProps {
+  year: number,
+  children?: React.ReactNode
+}
+
+const YearPicker: React.FC<YearPickerProps> = ({ year }) => {
   // https://o7planning.org/12391/bootstrap-input-group
   return (
     <div>
@@ -14,8 +19,7 @@ const YearPicker: React.FC = () => {
           </button>
         </div>
 
-        {/* <input type="text" className="form-control" /> */}
-        <span className="input-group-text bg-white">2019</span>
+        <span className="input-group-text bg-white">{year}</span>
 
         <div className="input-group-append">
           <button className="btn btn-outline-primary" type="button">
