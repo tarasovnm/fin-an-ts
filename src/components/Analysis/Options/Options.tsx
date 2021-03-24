@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { BalanceContext } from '../../../context/balanceContext';
 import Period from './Period/Period';
 
 const Options: React.FC = () => {
+
+  const { period, changePeriodStart, changePeriodEnd } = useContext(BalanceContext);
+
+  console.log(period);
+  changePeriodStart(1);
+  changePeriodEnd(1);
+
   return (
     <div className="card p-4 mb-3">
 

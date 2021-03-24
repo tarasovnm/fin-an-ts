@@ -6,7 +6,7 @@ interface YearPickerProps {
 }
 
 const YearPicker: React.FC<YearPickerProps> = ({ year }) => {
-  // https://o7planning.org/12391/bootstrap-input-group
+
   return (
     <div>
       <div className="input-group input-group-sm">
