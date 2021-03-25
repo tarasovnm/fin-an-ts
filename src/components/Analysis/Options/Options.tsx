@@ -4,11 +4,7 @@ import Period from './Period/Period';
 
 const Options: React.FC = () => {
 
-  const { period, changePeriodStart, changePeriodEnd } = useContext(BalanceContext);
-
-  console.log(period);
-  changePeriodStart(1);
-  changePeriodEnd(1);
+  const context = useContext(BalanceContext);
 
   return (
     <div className="card p-4 mb-3">
@@ -23,7 +19,7 @@ const Options: React.FC = () => {
       <div className="mb-3 row">
         <label className="col-sm-4 col-form-label" htmlFor="name">Анализируемый период:</label>
         <div className="col-sm-8">
-          <Period />
+          <Period {...context} />
         </div>
       </div>
 

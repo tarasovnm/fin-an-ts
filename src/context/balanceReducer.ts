@@ -17,11 +17,21 @@ interface IAction {
 export const balanceReducer = (state: IBalanceState, action: IAction) => {
   switch (action.type) {
     case CHANGE_PERIOD_START:
-      console.log('Изменяем начало периода на', action.payload)
-      return state;
+      return {
+        ...state,
+        analysisPeriod: {
+          ...state.analysisPeriod,
+          start: state.analysisPeriod.start + action.payload
+        }
+      };
     case CHANGE_PERIOD_END:
-      console.log('Изменяем конец периода на', action.payload)
-      return state;
+      return {
+        ...state,
+        analysisPeriod: {
+          ...state.analysisPeriod,
+          end: state.analysisPeriod.end + action.payload
+        }
+      };
     default:
       return state;
   }

@@ -29,8 +29,8 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
 
   const initialBalanceContext: BalanceContextInterface = {
     period: state.analysisPeriod,
-    changePeriodStart,
-    changePeriodEnd
+    changePeriodStart: changePeriodStart,
+    changePeriodEnd: changePeriodEnd
   }
 
   return (
