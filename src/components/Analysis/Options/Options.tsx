@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { BalanceContext } from '../../../context/balanceContext';
+import { BalanceContext, BalanceContextInterface } from '../../../context/balanceContext';
 import Period from './Period/Period';
 
 const Options: React.FC = () => {
 
-  const context = useContext(BalanceContext);
+  const context = useContext(BalanceContext) as BalanceContextInterface;
 
   return (
     <div className="card p-4 mb-3">
