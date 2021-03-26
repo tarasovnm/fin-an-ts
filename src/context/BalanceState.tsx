@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
 import { BalanceContext, BalanceContextInterface } from './balanceContext';
-import { balanceReducer, IBalanceState, CHANGE_PERIOD_START, CHANGE_PERIOD_END } from './balanceReducer';
+import { balanceReducer, CHANGE_PERIOD_START, CHANGE_PERIOD_END } from './balanceReducer';
+import { createBalanceState } from './balanceStateData';
+import { IBalanceState } from './interfaces';
 
 interface BalanceStateProps {
   children: React.ReactChild
@@ -13,7 +15,8 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
     analysisPeriod: {
       start: 2018,
       end: 2020
-    }
+    },
+    belance: createBalanceState(2018, 2020)
   }
 
   const [state, dispatch] = useReducer(balanceReducer, initialState)

@@ -1,13 +1,7 @@
+import { IBalanceState } from './interfaces';
+
 export const CHANGE_PERIOD_START = 'CHANGE_PERIOD_START';
 export const CHANGE_PERIOD_END = 'CHANGE_PERIOD_END';
-
-export interface IBalanceState {
-  companyName: string,
-  analysisPeriod: {
-    start: number,
-    end: number
-  }
-}
 
 interface IAction {
   type: string,
