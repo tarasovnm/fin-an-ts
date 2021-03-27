@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import BalanceTableForm1 from './BalanceTableForm1/BalanceTableForm1';
+import { IBalanceContextInterface } from '../../../context/interfaces';
+import { BalanceContext } from '../../../context/balanceContext';
 
 const BalanceForm1: React.FC = () => {
 
-  const balanceData = {};
-  const analysisPeriod = {
-    start: 2010,
-    end: 2012
-  }
+  const { period, balance } = useContext(BalanceContext) as IBalanceContextInterface;
 
   return (
     <div className="balance-form-1 card p-3">
@@ -15,8 +13,8 @@ const BalanceForm1: React.FC = () => {
 
       <div>
         <BalanceTableForm1
-          tableData={balanceData}
-          analysisPeriod={analysisPeriod}
+          tableData={balance}
+          analysisPeriod={period}
         // cellValueChanged={cellValueChanged} 
         />
       </div>

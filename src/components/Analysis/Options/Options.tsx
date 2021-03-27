@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { BalanceContext, BalanceContextInterface } from '../../../context/balanceContext';
+import { BalanceContext } from '../../../context/balanceContext';
+import { IBalanceContextInterface } from '../../../context/interfaces';
 import Period from './Period/Period';
 
 const Options: React.FC = () => {
 
-  const context = useContext(BalanceContext) as BalanceContextInterface;
+  const { period, changePeriodStart, changePeriodEnd } = useContext(BalanceContext) as IBalanceContextInterface;
 
   return (
     <div className="card p-4 mb-3">
@@ -19,7 +20,7 @@ const Options: React.FC = () => {
       <div className="mb-3 row">
         <label className="col-sm-4 col-form-label" htmlFor="name">Анализируемый период:</label>
         <div className="col-sm-8">
-          <Period {...context} />
+          <Period period={period} changePeriodStart={changePeriodStart} changePeriodEnd={changePeriodEnd} />
         </div>
       </div>
 

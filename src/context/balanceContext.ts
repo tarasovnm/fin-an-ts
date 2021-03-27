@@ -1,12 +1,4 @@
 import { createContext } from 'react';
+import { IBalanceContextInterface } from './interfaces';
 
-export interface BalanceContextInterface {
-  period: {
-    start: number,
-    end: number
-  },
-  changePeriodStart: (delta: number) => void,
-  changePeriodEnd: (delta: number) => void
-}
-
-export const BalanceContext = createContext<BalanceContextInterface | null>(null);
+export const BalanceContext = createContext<IBalanceContextInterface | null>(null);

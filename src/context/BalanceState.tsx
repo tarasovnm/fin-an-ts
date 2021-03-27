@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
-import { BalanceContext, BalanceContextInterface } from './balanceContext';
+import { BalanceContext } from './balanceContext';
 import { balanceReducer, CHANGE_PERIOD_START, CHANGE_PERIOD_END } from './balanceReducer';
 import { createBalanceState } from './balanceStateData';
-import { IBalanceState } from './interfaces';
+import { IBalanceState, IBalanceContextInterface } from './interfaces';
 
 interface BalanceStateProps {
   children: React.ReactChild
@@ -24,8 +24,9 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
   const changePeriodStart = (delta: number) => dispatch({ type: CHANGE_PERIOD_START, payload: delta });
   const changePeriodEnd = (delta: number) => dispatch({ type: CHANGE_PERIOD_END, payload: delta })
 
-  const balanceContext: BalanceContextInterface = {
+  const balanceContext: IBalanceContextInterface = {
     period: state.analysisPeriod,
+    balance: state.belance,
     changePeriodStart: changePeriodStart,
     changePeriodEnd: changePeriodEnd
   }

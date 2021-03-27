@@ -35,3 +35,13 @@ export interface IBalanceState {
   }
   belance: IBalanceTableState
 }
+
+export interface IBalanceContextInterface {
+  period: {
+    start: number,
+    end: number
+  },
+  balance: IBalanceTableState,
+  changePeriodStart: (delta: number) => void,
+  changePeriodEnd: (delta: number) => void
+}
