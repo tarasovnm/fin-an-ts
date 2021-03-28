@@ -8,7 +8,7 @@ const BalanceForm1: React.FC = () => {
   const { period, balance } = useContext(BalanceContext) as IBalanceContextInterface;
 
   return (
-    <div className="balance-form-1 card p-3">
+    <div className="balance-form-1 card p-3 mb-3">
       <h3>Бухгалтерский баланс</h3>
 
       <div>

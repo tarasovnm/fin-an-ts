@@ -1,15 +1,15 @@
-interface IBalanseRow {
+export interface IBalanseRow {
   name: string,
   code: number,
   values: number[]
 }
 
-interface IBalanceTotal {
+export interface IBalanceTotal {
   code: number,
   values: number[]
 }
 
-interface IBalanceSection {
+export interface IBalanceSection {
   id: string,
   name: string,
   data: IBalanseRow[],
