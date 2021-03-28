@@ -163,6 +163,7 @@ interface IBalanceTableForm1Props {
     start: number,
     end: number
   },
+  cellValueChanged: (value: number, code: number, index: number) => void
 }
 
 const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analysisPeriod }) => {

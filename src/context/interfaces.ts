@@ -43,5 +43,6 @@ export interface IBalanceContextInterface {
   },
   balance: IBalanceTableState,
   changePeriodStart: (delta: number) => void,
-  changePeriodEnd: (delta: number) => void
+  changePeriodEnd: (delta: number) => void,
+  cellValueChanged: (value: number, code: number, index: number) => void
 }

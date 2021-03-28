@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 import { BalanceContext } from './balanceContext';
-import { balanceReducer, CHANGE_PERIOD_START, CHANGE_PERIOD_END } from './balanceReducer';
+import { balanceReducer, CHANGE_PERIOD_START, CHANGE_PERIOD_END, CELL_VALUE_CHANGED } from './balanceReducer';
 import { createBalanceState } from './balanceStateData';
 import { IBalanceState, IBalanceContextInterface } from './interfaces';
 
@@ -22,13 +22,18 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
   const [state, dispatch] = useReducer(balanceReducer, initialState)
 
   const changePeriodStart = (delta: number) => dispatch({ type: CHANGE_PERIOD_START, payload: delta });
-  const changePeriodEnd = (delta: number) => dispatch({ type: CHANGE_PERIOD_END, payload: delta })
+  const changePeriodEnd = (delta: number) => dispatch({ type: CHANGE_PERIOD_END, payload: delta });
+  const cellValueChanged = (value: number, code: number, index: number) => dispatch({
+    type: CELL_VALUE_CHANGED,
+    payload: { value, code, index }
+  })
 
   const balanceContext: IBalanceContextInterface = {
     period: state.analysisPeriod,
     balance: state.belance,
     changePeriodStart: changePeriodStart,
-    changePeriodEnd: changePeriodEnd
+    changePeriodEnd: changePeriodEnd,
+    cellValueChanged: cellValueChanged
   }
 
   return (
