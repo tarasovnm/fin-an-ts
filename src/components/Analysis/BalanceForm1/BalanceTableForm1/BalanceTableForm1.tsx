@@ -33,29 +33,35 @@ interface ICellProps {
   code: number,
   index: number,
   value: number,
+  cellValueChanged: (value: string, code: string, index: string) => void
 }
 
-const Cell: React.FC<ICellProps> = ({ code, index, value }) => {
+const Cell: React.FC<ICellProps> = ({ code, index, value, cellValueChanged }) => {
 
-  // const onCellChange = (e) => {
-  //   const target = e.target;
-  //   cellValueChanged({
-  //     code: target.dataset.code,
-  //     index: target.dataset.index,
-  //     value: target.value
-  //   });
-  // }
+  const inputStyle = {
+    display: "block",
+    padding: 0,
+    margin: 0,
+    border: 0,
+    width: "100%",
+    textAlign: "center" as "center"
+  }
+
+  const onCellChange = (e: any) => {
+    const target = e.target;
+    cellValueChanged(target.value, target.dataset.code, target.dataset.index);
+  }
 
   return (
     <td className="align-middle text-center">
-      {/* <input
+      <input className="m0"
         type="text"
         value={value}
+        style={inputStyle}
         onChange={onCellChange}
         data-code={code}
         data-index={index}>
-      </input> */}
-      {value}
+      </input>
     </td>
   );
 }
@@ -63,15 +69,16 @@ const Cell: React.FC<ICellProps> = ({ code, index, value }) => {
 // SectoinRow ===============================================================================
 
 interface ISectoinRowProps {
-  sectionStr: IBalanseRow
+  sectionStr: IBalanseRow,
+  cellValueChanged: (value: string, code: string, index: string) => void
 }
 
-const SectoinRow: React.FC<ISectoinRowProps> = ({ sectionStr }) => {
+const SectoinRow: React.FC<ISectoinRowProps> = ({ sectionStr, cellValueChanged }) => {
   return (
     <tr>
       <td>{sectionStr.name}</td>
       <td className="align-middle text-center">{sectionStr.code}</td>
-      {sectionStr.values.map((val, idx) => <Cell value={val} key={idx} code={sectionStr.code} index={idx} />)}
+      {sectionStr.values.map((val, idx) => <Cell value={val} key={idx} code={sectionStr.code} index={idx} cellValueChanged={cellValueChanged} />)}
     </tr>
   );
 }
@@ -98,16 +105,17 @@ const SectionTotal: React.FC<ISectionTotalProps> = ({ totalData, sectionId, year
 
 interface IBalanceSectionProps {
   sectionData: IBalanceSection,
-  years: number[]
+  years: number[],
+  cellValueChanged: (value: string, code: string, index: string) => void
 }
 
-const BalanceSection: React.FC<IBalanceSectionProps> = ({ sectionData, years }) => {
+const BalanceSection: React.FC<IBalanceSectionProps> = ({ sectionData, years, cellValueChanged }) => {
   return (
     <>
       <tr>
         <td colSpan={years.length + 2}>{sectionData.id + '. ' + sectionData.name}</td>
       </tr>
-      {sectionData.data.map(sectionStr => <SectoinRow sectionStr={sectionStr} key={sectionStr.code} />)}
+      {sectionData.data.map(sectionStr => <SectoinRow sectionStr={sectionStr} key={sectionStr.code} cellValueChanged={cellValueChanged} />)}
       <SectionTotal totalData={sectionData.total} sectionId={sectionData.id} years={years} />
     </>
   );
@@ -138,10 +146,11 @@ interface ITablePartProps {
     total: IBalanceTotal
   },
   name: string,
-  years: number[]
+  years: number[],
+  cellValueChanged: (value: string, code: string, index: string) => void
 }
 
-const TablePart: React.FC<ITablePartProps> = ({ partData, name, years }) => {
+const TablePart: React.FC<ITablePartProps> = ({ partData, name, years, cellValueChanged }) => {
   return (
     <>
       <tr>
@@ -149,7 +158,7 @@ const TablePart: React.FC<ITablePartProps> = ({ partData, name, years }) => {
           <span className="fw-bolder text-reset">{name}</span>
         </td>
       </tr>
-      {partData.sections.map(section => <BalanceSection sectionData={section} years={years} key={section.id} />)}
+      {partData.sections.map(section => <BalanceSection sectionData={section} years={years} key={section.id} cellValueChanged={cellValueChanged} />)}
       <PartTotal totalData={partData.total} years={years} />
     </>
   );
@@ -163,10 +172,10 @@ interface IBalanceTableForm1Props {
     start: number,
     end: number
   },
-  cellValueChanged: (value: number, code: number, index: number) => void
+  cellValueChanged: (value: string, code: string, index: string) => void
 }
 
-const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analysisPeriod }) => {
+const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analysisPeriod, cellValueChanged }) => {
   let numOfYears: number = analysisPeriod.end - analysisPeriod.start;
   let years: number[] = [];
   let i: number = numOfYears;
@@ -183,11 +192,13 @@ const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analy
         <TablePart
           partData={tableData.active}
           name="АКТИВ"
-          years={years} />
+          years={years}
+          cellValueChanged={cellValueChanged} />
         <TablePart
           partData={tableData.passive}
           name="ПАССИВ"
-          years={years} />
+          years={years}
+          cellValueChanged={cellValueChanged} />
       </tbody>
     </table>
   )

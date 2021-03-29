@@ -17,14 +17,10 @@ export interface IBalanceSection {
 }
 
 export interface IBalanceTableState {
-  active: {
+  [key: string]: {
     sections: IBalanceSection[],
     total: IBalanceTotal
   },
-  passive: {
-    sections: IBalanceSection[],
-    total: IBalanceTotal
-  }
 }
 
 export interface IBalanceState {
@@ -44,5 +40,5 @@ export interface IBalanceContextInterface {
   balance: IBalanceTableState,
   changePeriodStart: (delta: number) => void,
   changePeriodEnd: (delta: number) => void,
-  cellValueChanged: (value: number, code: number, index: number) => void
+  cellValueChanged: (value: string, code: string, index: string) => void
 }

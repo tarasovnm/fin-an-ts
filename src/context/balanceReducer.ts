@@ -1,4 +1,5 @@
 import { IBalanceState } from './interfaces';
+import { changeCellValue } from './balanceStateData';
 
 export const CHANGE_PERIOD_START = 'CHANGE_PERIOD_START';
 export const CHANGE_PERIOD_END = 'CHANGE_PERIOD_END';
@@ -33,8 +34,15 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
         }
       };
     case CELL_VALUE_CHANGED:
-      console.log('Значение ячейки изменено ', action.payload);
+      const newCellValue = parseInt(action.payload.value)
+      if (newCellValue) {
+        return {
+          ...state,
+          balance: changeCellValue(state.belance, action.payload.code, action.payload.index, action.payload.value)
+        }
+      }
       return state;
+
     default:
       return state;
   }

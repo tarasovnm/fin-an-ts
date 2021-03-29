@@ -1,3 +1,5 @@
+import { IBalanceTableState } from './interfaces';
+
 export function createBalanceState(startYear: number, endYear: number) {
   const initialValues = [0, 0, 0];
 
@@ -273,43 +275,47 @@ export function createBalanceState(startYear: number, endYear: number) {
 //   arr.unshift(0);
 // }
 
-// export function changeCellValue(balance, code, index, value) {
+export function changeCellValue(balance: IBalanceTableState, code: string, index: string, value: string) {
 
-//   let newBalance = { ...balance };
+  let newBalance: IBalanceTableState = { ...balance };
+  const keys: string[] = Object.keys(newBalance);
 
-//   Object.keys(newBalance).forEach(part => {
-//     newBalance[part].sections.forEach(section => {
-//       section.data.forEach(row => {
-//         if (row.code === parseInt(code)) {
-//           row.values = [...row.values];
-//           row.values[parseInt(index)] = value;
-//         }
-//       });
-//     });
-//   });
+  keys.forEach((part) => {
+    newBalance[part].sections.forEach(section => {
+      section.data.forEach(row => {
+        if (row.code === parseInt(code)) {
+          row.values = [...row.values];
+          row.values[parseInt(index)] = parseInt(value);
+        }
+      });
+      console.log('зашли циклом в часть')
+    });
+  });
 
-//   return calculateBalanceTotals(newBalance);
-// }
+  return calculateBalanceTotals(newBalance);
+}
 
-// export function calculateBalanceTotals(balance) {
-//   Object.keys(balance).forEach(part => {
-//     let partTotal = [];
-//     balance[part].sections.forEach(section => {
-//       let total = [];
-//       section.data.forEach(row => {
-//         row.values.forEach((val, idx) => {
-//           total[idx] = !total[idx] ? val : total[idx] + val;
-//         });
-//       });
-//       section.total.values = total;
+export function calculateBalanceTotals(balance: IBalanceTableState) {
+  const keys: string[] = Object.keys(balance);
 
-//       section.total.values.forEach((val, idx) => {
-//         partTotal[idx] = !partTotal[idx] ? val : partTotal[idx] + val;
-//       });
-//     });
+  keys.forEach(part => {
+    let partTotal: number[] = [];
+    balance[part].sections.forEach(section => {
+      let total: number[] = [];
+      section.data.forEach(row => {
+        row.values.forEach((val, idx) => {
+          total[idx] = !total[idx] ? val : total[idx] + val;
+        });
+      });
+      section.total.values = total;
 
-//     balance[part].total.values = partTotal;
-//   });
+      section.total.values.forEach((val, idx) => {
+        partTotal[idx] = !partTotal[idx] ? val : partTotal[idx] + val;
+      });
+    });
 
-//   return balance;
-// }
+    balance[part].total.values = partTotal;
+  });
+
+  return balance;
+}

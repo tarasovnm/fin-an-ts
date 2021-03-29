@@ -23,7 +23,7 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
 
   const changePeriodStart = (delta: number) => dispatch({ type: CHANGE_PERIOD_START, payload: delta });
   const changePeriodEnd = (delta: number) => dispatch({ type: CHANGE_PERIOD_END, payload: delta });
-  const cellValueChanged = (value: number, code: number, index: number) => dispatch({
+  const cellValueChanged = (value: string, code: string, index: string) => dispatch({
     type: CELL_VALUE_CHANGED,
     payload: { value, code, index }
   })
