@@ -1,5 +1,7 @@
 import { IBalanceState } from './interfaces';
-import { changeCellValue } from './balanceStateData';
+import { changeCellValue, changeStartColumn, changeEndColumn } from './balanceStateData';
+
+const MAX_PERIOD_LENGTH = 5;
 
 export const CHANGE_PERIOD_START = 'CHANGE_PERIOD_START';
 export const CHANGE_PERIOD_END = 'CHANGE_PERIOD_END';
@@ -18,27 +20,50 @@ interface IAction {
 export const balanceReducer = (state: IBalanceState, action: IAction) => {
   switch (action.type) {
     case CHANGE_PERIOD_START:
+      let startDelta = action.payload;
+      let newStartValue = state.analysisPeriod.start + startDelta;
+
+      if (newStartValue <= 2010 || newStartValue >= state.analysisPeriod.end || newStartValue <= state.analysisPeriod.end - MAX_PERIOD_LENGTH) {
+        startDelta = 0;
+      }
+
+      newStartValue = state.analysisPeriod.start + startDelta;
+
       return {
         ...state,
         analysisPeriod: {
-          ...state.analysisPeriod,
-          start: state.analysisPeriod.start + action.payload
-        }
+          start: newStartValue,
+          end: state.analysisPeriod.end
+        },
+        balance: startDelta ? changeStartColumn(state.balance, startDelta) : state.balance
       };
+
     case CHANGE_PERIOD_END:
+      let endDelta = action.payload;
+      let newEndValue = state.analysisPeriod.end + endDelta;
+
+
+      if (newEndValue > 2020 || newEndValue <= state.analysisPeriod.start || newEndValue >= state.analysisPeriod.start + MAX_PERIOD_LENGTH) {
+        endDelta = 0;
+      }
+
+      newEndValue = state.analysisPeriod.end + endDelta;
+
       return {
         ...state,
         analysisPeriod: {
-          ...state.analysisPeriod,
-          end: state.analysisPeriod.end + action.payload
-        }
+          start: state.analysisPeriod.start,
+          end: newEndValue
+        },
+        balanceData: endDelta ? changeEndColumn(state.balance, action.payload) : state.balance
       };
+
     case CELL_VALUE_CHANGED:
       const newCellValue = parseInt(action.payload.value)
       if (newCellValue) {
         return {
           ...state,
-          balance: changeCellValue(state.belance, action.payload.code, action.payload.index, action.payload.value)
+          balance: changeCellValue(state.balance, action.payload.code, action.payload.index, action.payload.value)
         }
       }
       return state;

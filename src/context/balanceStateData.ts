@@ -1,7 +1,7 @@
 import { IBalanceTableState } from './interfaces';
 
 export function createBalanceState(startYear: number, endYear: number) {
-  const initialValues = [0, 0, 0];
+  const initialValues = [1, 1, 1];
 
   return {
     active: {
@@ -223,57 +223,68 @@ export function createBalanceState(startYear: number, endYear: number) {
   }
 }
 
-// export function changeStartColumn(balance, delta) {
-//   if (delta > 0) {
-//     // Убрать последний столбец
-//     changeValuesArray(balance, popArr);
-//   } else {
-//     // Добавить столбец сзади
-//     changeValuesArray(balance, pushArr);
-//   }
+export function changeStartColumn(balance: IBalanceTableState, delta: number) {
+  if (delta > 0) {
+    // Убрать последний столбец
+    console.log('Убираем последний столбец------------------------------------');
+    changeValuesArray(balance, popArr);
+  } else {
+    // Добавить столбец сзади
+    console.log('Добавляем последний столбец------------------------------------');
+    changeValuesArray(balance, pushArr);
+  }
+  return balance;
+}
 
-//   return balance;
-// }
+export function changeEndColumn(balance: IBalanceTableState, delta: number) {
+  if (delta > 0) {
+    // Добавить столбец спереди
+    console.log('Добавляем столбец спереди------------------------------------');
+    changeValuesArray(balance, unshiftArr);
+  } else {
+    // Убрать первый столбец
+    console.log('Убираем первый столбец------------------------------------');
+    changeValuesArray(balance, shiftArr);
+  }
+  return balance;
+}
 
-// export function changeEndColumn(balance, delta) {
-//   if (delta > 0) {
-//     // Добавить столбец спереди
-//     changeValuesArray(balance, unshiftArr);
-//   } else {
-//     // Убрать первый столбец
-//     changeValuesArray(balance, shiftArr);
-//   }
+function changeValuesArray(balance: IBalanceTableState, fn: (arr: number[]) => void) {
+  console.log('Вызвана функция изменения таблицы баланса', balance);
 
-//   return balance;
-// }
+  Object.keys(balance).forEach(part => {
+    balance[part].sections.forEach(section => {
+      section.data.forEach(row => {
+        console.log(row.values.length);
+        row.values = [...row.values];
+        fn(row.values);
+        console.log(row.values.length);
+      });
+      fn(section.total.values);
+    });
+    fn(balance[part].total.values);
+  });
+}
 
-// function changeValuesArray(balance, fn) {
-//   Object.keys(balance).forEach(part => {
-//     balance[part].sections.forEach(section => {
-//       section.data.forEach(row => {
-//         fn(row.values);
-//       });
-//       fn(section.total.values);
-//     });
-//     fn(balance[part].total.values);
-//   });
-// }
+function popArr(arr: number[]) {
+  // console.log('Убираем последний элемент массива');
+  arr.pop();
+}
 
-// function popArr(arr) {
-//   arr.pop();
-// }
+function pushArr(arr: number[]) {
+  // console.log('Добавляем в конец массива 0');
+  arr.push(0);
+}
 
-// function pushArr(arr) {
-//   arr.push(0);
-// }
+function shiftArr(arr: number[]) {
+  // console.log('Убираем первый элемент массива');
+  arr.shift();
+}
 
-// function shiftArr(arr) {
-//   arr.shift();
-// }
-
-// function unshiftArr(arr) {
-//   arr.unshift(0);
-// }
+function unshiftArr(arr: number[]) {
+  // console.log('Добавляем в начало массива 0');
+  arr.unshift(0);
+}
 
 export function changeCellValue(balance: IBalanceTableState, code: string, index: string, value: string) {
 

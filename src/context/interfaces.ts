@@ -29,7 +29,7 @@ export interface IBalanceState {
     start: number,
     end: number
   }
-  belance: IBalanceTableState
+  balance: IBalanceTableState
 }
 
 export interface IBalanceContextInterface {

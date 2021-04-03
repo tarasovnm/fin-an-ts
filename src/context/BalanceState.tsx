@@ -16,7 +16,7 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
       start: 2018,
       end: 2020
     },
-    belance: createBalanceState(2018, 2020)
+    balance: createBalanceState(2018, 2020)
   }
 
   const [state, dispatch] = useReducer(balanceReducer, initialState)
@@ -30,7 +30,7 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
 
   const balanceContext: IBalanceContextInterface = {
     period: state.analysisPeriod,
-    balance: state.belance,
+    balance: state.balance,
     changePeriodStart: changePeriodStart,
     changePeriodEnd: changePeriodEnd,
     cellValueChanged: cellValueChanged
