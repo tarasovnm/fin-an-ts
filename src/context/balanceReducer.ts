@@ -23,7 +23,7 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
       let startDelta = action.payload;
       let newStartValue = state.analysisPeriod.start + startDelta;
 
-      if (newStartValue <= 2010 || newStartValue >= state.analysisPeriod.end || newStartValue <= state.analysisPeriod.end - MAX_PERIOD_LENGTH) {
+      if (newStartValue <= 2010 || newStartValue >= state.analysisPeriod.end || newStartValue <= (state.analysisPeriod.end - MAX_PERIOD_LENGTH)) {
         startDelta = 0;
       }
 
@@ -43,7 +43,7 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
       let newEndValue = state.analysisPeriod.end + endDelta;
 
 
-      if (newEndValue > 2020 || newEndValue <= state.analysisPeriod.start || newEndValue >= state.analysisPeriod.start + MAX_PERIOD_LENGTH) {
+      if (newEndValue > 2020 || newEndValue <= state.analysisPeriod.start || newEndValue >= (state.analysisPeriod.start + MAX_PERIOD_LENGTH)) {
         endDelta = 0;
       }
 
@@ -55,7 +55,7 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
           start: state.analysisPeriod.start,
           end: newEndValue
         },
-        balanceData: endDelta ? changeEndColumn(state.balance, action.payload) : state.balance
+        balance: endDelta ? changeEndColumn(state.balance, action.payload) : state.balance
       };
 
     case CELL_VALUE_CHANGED:

@@ -38,7 +38,7 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
 
   return (
     <BalanceContext.Provider value={balanceContext}>
-      { children}
+      {children}
     </BalanceContext.Provider>
   );
 }
