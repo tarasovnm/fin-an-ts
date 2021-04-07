@@ -225,6 +225,7 @@ export default function getExampleState(): IBalanceState {
           values: [0, 0, 0]
         }
       }
-    })
+    }),
+    isReportDone: false
   }
 }

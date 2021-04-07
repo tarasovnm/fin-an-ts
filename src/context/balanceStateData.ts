@@ -1,6 +1,6 @@
-import { IBalanceTableState } from './interfaces';
+import { IBalanceTableState, IBalanceState } from './interfaces';
 
-export function createBalanceState(startYear: number, endYear: number) {
+export function createBalanceState(startYear: number, endYear: number): IBalanceTableState {
   const initialValues = [0, 0, 0];
 
   return {
@@ -220,6 +220,18 @@ export function createBalanceState(startYear: number, endYear: number) {
         values: [...initialValues]
       }
     }
+  }
+}
+
+export function createInitialState(): IBalanceState {
+  return {
+    companyName: '',
+    analysisPeriod: {
+      start: 2018,
+      end: 2020
+    },
+    balance: createBalanceState(2018, 2020),
+    isReportDone: false
   }
 }
 

@@ -29,7 +29,8 @@ export interface IBalanceState {
     start: number,
     end: number
   }
-  balance: IBalanceTableState
+  balance: IBalanceTableState,
+  isReportDone: boolean
 }
 
 export interface IBalanceContextInterface {

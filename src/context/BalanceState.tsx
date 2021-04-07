@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { BalanceContext } from './balanceContext';
 import { balanceReducer, COMPANY_NAME_CHANGED, CHANGE_PERIOD_START, CHANGE_PERIOD_END, CLEAR_INPUT_DATA, CELL_VALUE_CHANGED, LOAD_EXAMPLE_DATA } from './balanceReducer';
-import { createBalanceState } from './balanceStateData';
+import { createInitialState } from './balanceStateData';
 import { IBalanceState, IBalanceContextInterface } from './interfaces';
 
 interface BalanceStateProps {
@@ -10,15 +10,7 @@ interface BalanceStateProps {
 
 export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
 
-  const initialState: IBalanceState = {
-    companyName: '',
-    analysisPeriod: {
-      start: 2018,
-      end: 2020
-    },
-    balance: createBalanceState(2018, 2020)
-  }
-
+  const initialState: IBalanceState = createInitialState()
   const [state, dispatch] = useReducer(balanceReducer, initialState)
 
   const companyNameChanged = (name: string) => dispatch({ type: COMPANY_NAME_CHANGED, payload: name });
