@@ -33,11 +33,13 @@ export interface IBalanceState {
 }
 
 export interface IBalanceContextInterface {
+  companyName: string,
   period: {
     start: number,
     end: number
   },
   balance: IBalanceTableState,
+  companyNameChanged: (name: string) => void,
   changePeriodStart: (delta: number) => void,
   changePeriodEnd: (delta: number) => void,
   cellValueChanged: (value: string, code: string, index: string) => void

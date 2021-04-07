@@ -5,7 +5,11 @@ import Period from './Period/Period';
 
 const Options: React.FC = () => {
 
-  const { period, changePeriodStart, changePeriodEnd } = useContext(BalanceContext) as IBalanceContextInterface;
+  const { companyName, period, companyNameChanged, changePeriodStart, changePeriodEnd } = useContext(BalanceContext) as IBalanceContextInterface;
+
+  const onCompanyNameChanged = (e: any) => {
+    companyNameChanged(e.target.value);
+  }
 
   return (
     <div className="card p-4 mb-3">
@@ -13,7 +17,7 @@ const Options: React.FC = () => {
       <div className="mb-2 row">
         <label className="col-sm-4 col-form-label" htmlFor="name">Наименование организации:</label>
         <div className="col-sm-8">
-          <input className="form-control" type="text" id="name" />
+          <input className="form-control" type="text" id="name" value={companyName} onChange={onCompanyNameChanged} />
         </div>
       </div>
 

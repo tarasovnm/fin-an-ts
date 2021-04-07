@@ -3,11 +3,11 @@ import { changeCellValue, changeStartColumn, changeEndColumn } from './balanceSt
 
 const MAX_PERIOD_LENGTH = 5;
 
+export const COMPANY_NAME_CHANGED = 'COMPANY_NAME_CHANGED';
 export const CHANGE_PERIOD_START = 'CHANGE_PERIOD_START';
 export const CHANGE_PERIOD_END = 'CHANGE_PERIOD_END';
-
-export const COMPANY_NAME_CHANGED = 'COMPANY_NAME_CHANGED';
 export const CELL_VALUE_CHANGED = 'CELL_VALUE_CHANGED';
+
 export const CLEAR_INPUT_DATA = 'CLEAR_INPUT_DATA';
 export const LOAD_EXAMPLE_DATA = 'LOAD_EXAMPLE_DATA';
 export const PREPARE_REPORT = 'PREPARE_REPORT';
@@ -19,6 +19,9 @@ interface IAction {
 
 export const balanceReducer = (state: IBalanceState, action: IAction) => {
   switch (action.type) {
+    case COMPANY_NAME_CHANGED:
+      return { ...state, companyName: action.payload };
+
     case CHANGE_PERIOD_START:
       let startDelta = action.payload;
       let newStartValue = state.analysisPeriod.start + startDelta;

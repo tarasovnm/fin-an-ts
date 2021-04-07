@@ -1,7 +1,7 @@
 import { IBalanceTableState } from './interfaces';
 
 export function createBalanceState(startYear: number, endYear: number) {
-  const initialValues = [1, 1, 1];
+  const initialValues = [0, 0, 0];
 
   return {
     active: {
@@ -252,8 +252,6 @@ function changeValuesArray(balance: IBalanceTableState, fn: (arr: number[]) => v
     fn(newBalance[part].total.values);
   });
 
-  console.log('Баланс был изменен ', newBalance);
-
   return newBalance;
 }
 
@@ -286,7 +284,6 @@ export function changeCellValue(balance: IBalanceTableState, code: string, index
           row.values[parseInt(index)] = parseInt(value);
         }
       });
-      console.log('зашли циклом в часть')
     });
   });
 
