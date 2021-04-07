@@ -42,5 +42,7 @@ export interface IBalanceContextInterface {
   companyNameChanged: (name: string) => void,
   changePeriodStart: (delta: number) => void,
   changePeriodEnd: (delta: number) => void,
+  clearInputData: () => void,
+  enterExampleData: () => void,
   cellValueChanged: (value: string, code: string, index: string) => void
 }

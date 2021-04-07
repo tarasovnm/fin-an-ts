@@ -1,5 +1,7 @@
 import { IBalanceState } from './interfaces';
 import { changeCellValue, changeStartColumn, changeEndColumn } from './balanceStateData';
+import { createBalanceState } from './balanceStateData';
+import getExampleState from './balanceStateExampleData';
 
 const MAX_PERIOD_LENGTH = 5;
 
@@ -7,9 +9,9 @@ export const COMPANY_NAME_CHANGED = 'COMPANY_NAME_CHANGED';
 export const CHANGE_PERIOD_START = 'CHANGE_PERIOD_START';
 export const CHANGE_PERIOD_END = 'CHANGE_PERIOD_END';
 export const CELL_VALUE_CHANGED = 'CELL_VALUE_CHANGED';
-
 export const CLEAR_INPUT_DATA = 'CLEAR_INPUT_DATA';
 export const LOAD_EXAMPLE_DATA = 'LOAD_EXAMPLE_DATA';
+
 export const PREPARE_REPORT = 'PREPARE_REPORT';
 
 interface IAction {
@@ -70,6 +72,19 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
         }
       }
       return state;
+
+    case CLEAR_INPUT_DATA:
+      return {
+        companyName: '',
+        analysisPeriod: {
+          start: 2018,
+          end: 2020
+        },
+        balance: createBalanceState(2018, 2020)
+      };
+
+    case LOAD_EXAMPLE_DATA:
+      return getExampleState();
 
     default:
       return state;
