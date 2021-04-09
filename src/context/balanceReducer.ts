@@ -80,7 +80,6 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
       return getExampleState();
 
     case PREPARE_REPORT:
-      console.log('Подготовить отчет');
       return {
         ...state,
         isReportDone: true,

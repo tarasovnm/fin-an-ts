@@ -1,3 +1,5 @@
+// Интерфесы Баланса ф.1 ====================================================================
+
 export interface IBalanseRow {
   name: string,
   code: number,
@@ -23,9 +25,31 @@ export interface IBalanceTableState {
   },
 }
 
-export interface IReport {
-  status: string
+// Интерфесы аналитического отчета ==========================================================
+
+export interface IAnalyticalBalanceIndicator {
+  id: number,
+  name: string,
+  values: number[],
+  absoluteChange: number[],
+  relativeChange: number[],
+  weight: number[]
 }
+
+export interface IAnalyticalBalance {
+  indicators: IAnalyticalBalanceIndicator[],
+  balanceTotal: {
+    values: number[],
+    absoluteChange: number[],
+    relativeChange: number[],
+  }
+}
+
+export interface IReport {
+  analyticalBalance: IAnalyticalBalance
+}
+
+// Интерфесы общего стейта и контекста ======================================================
 
 export interface IBalanceState {
   companyName: string,

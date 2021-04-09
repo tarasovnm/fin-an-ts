@@ -8,7 +8,6 @@ import { IBalanceContextInterface } from '../../../context/interfaces';
 
 const Report: React.FC = () => {
   const { isReportDone } = useContext(BalanceContext) as IBalanceContextInterface;
-  console.log(isReportDone);
 
   if (!isReportDone) {
     return <></>;
