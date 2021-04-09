@@ -113,7 +113,7 @@ const BalanceSection: React.FC<IBalanceSectionProps> = ({ sectionData, years, ce
   return (
     <>
       <tr>
-        <td colSpan={years.length + 2}>{sectionData.id + '. ' + sectionData.name}</td>
+        <td className="font-weight-bold" colSpan={years.length + 2}>{sectionData.id + '. ' + sectionData.name}</td>
       </tr>
       {sectionData.data.map(sectionStr => <SectoinRow sectionStr={sectionStr} key={sectionStr.code} cellValueChanged={cellValueChanged} />)}
       <SectionTotal totalData={sectionData.total} sectionId={sectionData.id} years={years} />
@@ -131,7 +131,7 @@ interface IPartTotalProps {
 const PartTotal: React.FC<IPartTotalProps> = ({ totalData, years }) => {
   return (
     <tr >
-      <td>БАЛАНС</td>
+      <td className="font-weight-bold">БАЛАНС</td>
       <td className="text-center">{totalData.code}</td>
       {totalData.values.map((val, idx) => <td className="text-center" key={idx}>{val}</td>)}
     </tr>
@@ -155,7 +155,7 @@ const TablePart: React.FC<ITablePartProps> = ({ partData, name, years, cellValue
     <>
       <tr>
         <td className="fw-bolder" colSpan={years.length + 2}>
-          <span className="fw-bolder text-reset">{name}</span>
+          <span className="fw-bolder font-weight-bold">{name}</span>
         </td>
       </tr>
       {partData.sections.map(section => <BalanceSection sectionData={section} years={years} key={section.id} cellValueChanged={cellValueChanged} />)}
@@ -186,7 +186,7 @@ const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analy
   }
 
   return (
-    <table className="table table-sm table-bordered table-hover">
+    <table className="table table-sm table-bordered table-hover small">
       <TableHeader years={years} />
       <tbody>
         <TablePart
