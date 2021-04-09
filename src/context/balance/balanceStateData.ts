@@ -1,4 +1,4 @@
-import { IBalanceTableState, IBalanceState } from './interfaces';
+import { IBalanceTableState, IBalanceState } from '../interfaces';
 
 export function createBalanceState(startYear: number, endYear: number): IBalanceTableState {
   const initialValues = [0, 0, 0];
@@ -231,7 +231,8 @@ export function createInitialState(): IBalanceState {
       end: 2020
     },
     balance: createBalanceState(2018, 2020),
-    isReportDone: false
+    isReportDone: false,
+    report: undefined
   }
 }
 

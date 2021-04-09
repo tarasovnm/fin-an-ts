@@ -1,7 +1,8 @@
 import { IBalanceState } from './interfaces';
-import { changeCellValue, changeStartColumn, changeEndColumn } from './balanceStateData';
-import { createInitialState } from './balanceStateData';
-import getExampleState from './balanceStateExampleData';
+import { changeCellValue, changeStartColumn, changeEndColumn } from './balance/balanceStateData';
+import { createInitialState } from './balance/balanceStateData';
+import getExampleState from './balance/balanceStateExampleData';
+import prepareReport from './report/prepareReport';
 
 const MAX_PERIOD_LENGTH = 5;
 
@@ -11,7 +12,6 @@ export const CHANGE_PERIOD_END = 'CHANGE_PERIOD_END';
 export const CELL_VALUE_CHANGED = 'CELL_VALUE_CHANGED';
 export const CLEAR_INPUT_DATA = 'CLEAR_INPUT_DATA';
 export const LOAD_EXAMPLE_DATA = 'LOAD_EXAMPLE_DATA';
-
 export const PREPARE_REPORT = 'PREPARE_REPORT';
 
 interface IAction {
@@ -78,6 +78,14 @@ export const balanceReducer = (state: IBalanceState, action: IAction) => {
 
     case LOAD_EXAMPLE_DATA:
       return getExampleState();
+
+    case PREPARE_REPORT:
+      console.log('Подготовить отчет');
+      return {
+        ...state,
+        isReportDone: true,
+        report: prepareReport(state)
+      };
 
     default:
       return state;

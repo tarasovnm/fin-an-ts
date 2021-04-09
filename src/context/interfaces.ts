@@ -23,6 +23,10 @@ export interface IBalanceTableState {
   },
 }
 
+export interface IReport {
+  status: string
+}
+
 export interface IBalanceState {
   companyName: string,
   analysisPeriod: {
@@ -30,7 +34,8 @@ export interface IBalanceState {
     end: number
   }
   balance: IBalanceTableState,
-  isReportDone: boolean
+  isReportDone: boolean,
+  report: IReport | undefined
 }
 
 export interface IBalanceContextInterface {
@@ -40,10 +45,12 @@ export interface IBalanceContextInterface {
     end: number
   },
   balance: IBalanceTableState,
+  isReportDone: boolean,
   companyNameChanged: (name: string) => void,
   changePeriodStart: (delta: number) => void,
   changePeriodEnd: (delta: number) => void,
   clearInputData: () => void,
   enterExampleData: () => void,
-  cellValueChanged: (value: string, code: string, index: string) => void
+  cellValueChanged: (value: string, code: string, index: string) => void,
+  prepareReport: () => void
 }

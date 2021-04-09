@@ -1,5 +1,5 @@
 import { calculateBalanceTotals } from './balanceStateData';
-import { IBalanceState } from './interfaces';
+import { IBalanceState } from '../interfaces';
 
 export default function getExampleState(): IBalanceState {
   return {
@@ -226,6 +226,7 @@ export default function getExampleState(): IBalanceState {
         }
       }
     }),
-    isReportDone: false
+    isReportDone: false,
+    report: undefined
   }
 }

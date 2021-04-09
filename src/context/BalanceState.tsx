@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import { BalanceContext } from './balanceContext';
-import { balanceReducer, COMPANY_NAME_CHANGED, CHANGE_PERIOD_START, CHANGE_PERIOD_END, CLEAR_INPUT_DATA, CELL_VALUE_CHANGED, LOAD_EXAMPLE_DATA } from './balanceReducer';
-import { createInitialState } from './balanceStateData';
+import { balanceReducer, COMPANY_NAME_CHANGED, CHANGE_PERIOD_START, CHANGE_PERIOD_END, CLEAR_INPUT_DATA, CELL_VALUE_CHANGED, LOAD_EXAMPLE_DATA, PREPARE_REPORT } from './balanceReducer';
+import { createInitialState } from './balance/balanceStateData';
 import { IBalanceState, IBalanceContextInterface } from './interfaces';
 
 interface BalanceStateProps {
@@ -21,18 +21,21 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
   const cellValueChanged = (value: string, code: string, index: string) => dispatch({
     type: CELL_VALUE_CHANGED,
     payload: { value, code, index }
-  })
+  });
+  const prepareReport = () => dispatch({ type: PREPARE_REPORT });
 
   const balanceContext: IBalanceContextInterface = {
     companyName: state.companyName,
     period: state.analysisPeriod,
     balance: state.balance,
+    isReportDone: state.isReportDone,
     companyNameChanged: companyNameChanged,
     changePeriodStart: changePeriodStart,
     changePeriodEnd: changePeriodEnd,
     clearInputData: clearInputData,
     enterExampleData: enterExampleData,
-    cellValueChanged: cellValueChanged
+    cellValueChanged: cellValueChanged,
+    prepareReport: prepareReport
   }
 
   return (
