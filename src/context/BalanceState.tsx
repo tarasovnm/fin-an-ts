@@ -29,6 +29,7 @@ export const BalanceState: React.FC<BalanceStateProps> = ({ children }) => {
     period: state.analysisPeriod,
     balance: state.balance,
     isReportDone: state.isReportDone,
+    report: state.report,
     companyNameChanged: companyNameChanged,
     changePeriodStart: changePeriodStart,
     changePeriodEnd: changePeriodEnd,

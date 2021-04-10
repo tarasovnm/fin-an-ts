@@ -70,6 +70,7 @@ export interface IBalanceContextInterface {
   },
   balance: IBalanceTableState,
   isReportDone: boolean,
+  report: IReport | undefined,
   companyNameChanged: (name: string) => void,
   changePeriodStart: (delta: number) => void,
   changePeriodEnd: (delta: number) => void,

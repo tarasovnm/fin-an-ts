@@ -1,64 +1,120 @@
 import React from 'react';
+import { IAnalyticalBalance, IAnalyticalBalanceIndicator } from '../../../../../context/interfaces';
 
-const AnalyticalBalanceTableHead: React.FC = () => {
+// AnalyticalBalanceTableHead =====================================================================
+
+interface AnalyticalBalanceTableHeadProps {
+  period: {
+    start: number,
+    end: number
+  }
+}
+
+const AnalyticalBalanceTableHead: React.FC<AnalyticalBalanceTableHeadProps> = ({ period }) => {
+
+  let years: number[] = [];
+  for (let i = period.start; i <= period.end; i++) {
+    years.push(i);
+  }
+
+  let columns: number[] = [];
+  for (let i = 0; i <= years.length + 1; i++) {
+    columns.push(i + 1);
+  }
+
   return (
     <thead>
       <tr>
         <th className="align-middle text-center">Показатели</th>
         <th className="align-middle text-center">Значение</th>
-        <th className="align-middle text-center">31.12.2017</th>
-        <th className="align-middle text-center">31.12.2018</th>
-        <th className="align-middle text-center">31.12.2019</th>
+        {years.map(year => <th className="align-middle text-center" key={year}>{"31.12." + year}</th>)}
       </tr>
 
       <tr>
-        <td className="text-center">1</td>
-        <td className="text-center">2</td>
-        <td className="text-center">3</td>
-        <td className="text-center">4</td>
-        <td className="text-center">5</td>
+        {columns.map(col => <td className="text-center" key={col}>{col}</td>)}
       </tr>
     </thead>
   );
 }
 
-const AnalyticalBalanceTableBody: React.FC = () => {
+// AnalyticalCell =====================================+++=============================
+
+interface AnalyticalCellProps {
+  val: number | string
+}
+
+const AnalyticalCell: React.FC<AnalyticalCellProps> = ({ val }) => {
   return (
-    <tbody>
+    <td className="text-center">{val}</td>
+  );
+}
+
+// AnalyticalBalanceTableSection ==================================================================
+
+interface AnalyticalBalanceTableSectionProps {
+  sectionData: IAnalyticalBalanceIndicator
+}
+
+function toPercentSrtring(val: number): string {
+  return isNaN(val) ? 'x' : (val * 100).toFixed(2) + '%';
+}
+
+const AnalyticalBalanceTableSection: React.FC<AnalyticalBalanceTableSectionProps> = ({ sectionData }) => {
+  return (
+    <>
       <tr>
-        <td rowSpan={4}>I. Внеоборотные активы</td>
+        <td rowSpan={4}>{sectionData.name}</td>
         <td>значение, тыс. руб.</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        {sectionData.values.map((val, idx) => <AnalyticalCell key={idx} val={val} />)}
       </tr>
       <tr>
         <td>изменение, тыс. руб.</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        {sectionData.absoluteChange.map((val, idx) => <AnalyticalCell key={idx} val={val} />)}
       </tr>
       <tr>
         <td>изменение, %</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        {sectionData.relativeChange.map((val, idx) => <AnalyticalCell key={idx} val={toPercentSrtring(val)} />)}
       </tr>
       <tr>
         <td>удельный вес, %</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        {sectionData.weight.map((val, idx) => <AnalyticalCell key={idx} val={toPercentSrtring(val)} />)}
       </tr>
+    </>
+  );
+}
+
+// AnalyticalBalanceTableBody =====================================================================
+
+interface AnalyticalBalanceTableBodyProps {
+  analyticalData: IAnalyticalBalance
+}
+
+const AnalyticalBalanceTableBody: React.FC<AnalyticalBalanceTableBodyProps> = ({ analyticalData }) => {
+  console.log(analyticalData.indicators);
+
+  return (
+
+    <tbody>
+      {analyticalData.indicators.map(ind => <AnalyticalBalanceTableSection sectionData={ind} key={ind.id} />)}
     </tbody>
   );
 }
 
-const AnalyticalBalanceTable: React.FC = () => {
+// AnalyticalBalanceTable =========================================================================
+
+interface AnalyticalBalanceTableProps {
+  analyticalData: IAnalyticalBalance,
+  analyticalPeriod: {
+    start: number,
+    end: number
+  }
+}
+
+const AnalyticalBalanceTable: React.FC<AnalyticalBalanceTableProps> = ({ analyticalData, analyticalPeriod }) => {
   return (
     <table className="table table-sm table-bordered table-hover small">
-      <AnalyticalBalanceTableHead />
-      <AnalyticalBalanceTableBody />
+      <AnalyticalBalanceTableHead period={analyticalPeriod} />
+      <AnalyticalBalanceTableBody analyticalData={analyticalData} />
     </table>
   );
 }

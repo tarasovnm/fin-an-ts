@@ -11,16 +11,18 @@ export default function prepareAnalyticalBalance(state: IBalanceState): IAnalyti
 
       let sectionValues = section.total.values.reverse()
 
-      let analyticalSection: IAnalyticalBalanceIndicator = {
-        id: section.total.code,
-        name: section.name,
-        values: sectionValues,
-        absoluteChange: estimateAbsoluteChange(sectionValues),
-        relativeChange: estimateRelativeChange(sectionValues),
-        weight: estimateWeight(sectionValues, balanceTotal)
-      }
+      if (!sectionValues.every(el => el === 0)) {
+        let analyticalSection: IAnalyticalBalanceIndicator = {
+          id: section.total.code,
+          name: section.name,
+          values: sectionValues,
+          absoluteChange: estimateAbsoluteChange(sectionValues),
+          relativeChange: estimateRelativeChange(sectionValues),
+          weight: estimateWeight(sectionValues, balanceTotal)
+        }
 
-      indicators.push(analyticalSection)
+        indicators.push(analyticalSection);
+      }
 
       section.data.forEach(row => {
         let rowValues = row.values.reverse();

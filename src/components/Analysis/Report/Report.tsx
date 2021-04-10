@@ -7,7 +7,7 @@ import { BalanceContext } from '../../../context/balanceContext';
 import { IBalanceContextInterface } from '../../../context/interfaces';
 
 const Report: React.FC = () => {
-  const { isReportDone } = useContext(BalanceContext) as IBalanceContextInterface;
+  const { isReportDone, report, period } = useContext(BalanceContext) as IBalanceContextInterface;
 
   if (!isReportDone) {
     return <></>;
@@ -18,7 +18,7 @@ const Report: React.FC = () => {
       <PropertyStructure />
       <NetAssets />
       <FinancialStability />
-      <AnalyticalBalance />
+      <AnalyticalBalance analyticalData={report?.analyticalBalance} analyticalPeriod={period} />
     </div>
   );
 }
