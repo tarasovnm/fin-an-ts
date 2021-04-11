@@ -90,10 +90,7 @@ interface AnalyticalBalanceTableBodyProps {
 }
 
 const AnalyticalBalanceTableBody: React.FC<AnalyticalBalanceTableBodyProps> = ({ analyticalData }) => {
-  console.log(analyticalData.indicators);
-
   return (
-
     <tbody>
       {analyticalData.indicators.map(ind => <AnalyticalBalanceTableSection sectionData={ind} key={ind.id} />)}
     </tbody>
