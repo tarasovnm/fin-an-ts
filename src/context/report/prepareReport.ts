@@ -4,9 +4,10 @@ import preparePropertyStructure from './propertyStructure';
 
 export default function prepareReport(state: IBalanceState): IReport {
   let analyticalBalance = prepareAnalyticalBalance(state);
-  preparePropertyStructure(state);
+  let propertyStructure = preparePropertyStructure(state);
 
   return {
-    analyticalBalance
+    analyticalBalance,
+    propertyStructure
   }
 }

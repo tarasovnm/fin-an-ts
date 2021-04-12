@@ -65,7 +65,8 @@ export interface IPropertyStructure {
 }
 
 export interface IReport {
-  analyticalBalance: IAnalyticalBalance
+  analyticalBalance: IAnalyticalBalance,
+  propertyStructure: IPropertyStructure
 }
 
 // Интерфесы общего стейта и контекста ======================================================

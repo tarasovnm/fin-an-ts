@@ -1,6 +1,6 @@
 import { IBalanceState, IPropertyStructure, IPropertyStructureRow } from '../interfaces';
 
-export default function preparePropertyStructure(state: IBalanceState,) {
+export default function preparePropertyStructure(state: IBalanceState): IPropertyStructure {
 
   const balance = state.balance;
   const balanceTotal = [...state.balance.active.total.values];

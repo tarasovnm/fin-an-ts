@@ -1,6 +1,27 @@
 import React from 'react';
+import { IPropertyStructure, IPropertyStructureRow } from '../../../../../context/interfaces';
 
-const PropertyStructureTableHead: React.FC = () => {
+// PropertyStructureTableHead =====================================================================
+
+interface TableHeadProps {
+  period: {
+    start: number,
+    end: number
+  }
+}
+
+const PropertyStructureTableHead: React.FC<TableHeadProps> = ({ period }) => {
+
+  let years: number[] = [];
+  for (let i = period.start; i <= period.end; i++) {
+    years.push(i);
+  }
+
+  let columns: number[] = [];
+  for (let i = 0; i <= years.length + 4; i++) {
+    columns.push(i + 1);
+  }
+
   return (
     <thead>
       <tr>
@@ -17,186 +38,85 @@ const PropertyStructureTableHead: React.FC = () => {
       </tr>
 
       <tr>
-        <th className="align-middle text-center">31.12.2017</th>
-        <th className="align-middle text-center">31.12.2018</th>
-        <th className="align-middle text-center">31.12.2019</th>
-        <th className="align-middle text-center">на начало анализируемого периода (31.12.2017)</th>
-        <th className="align-middle text-center">на конец анализируемого периода (31.12.2019)</th>
+        {years.map(year => <th className="align-middle text-center" key={year}>{'31.12.' + year}</th>)}
+        <th className="align-middle text-center">на начало анализируемого периода ({'31.12.' + period.start})</th>
+        <th className="align-middle text-center">на конец анализируемого периода ({'31.12.' + period.end})</th>
         <th className="align-middle text-center">(гр.6-гр.2)</th>
         <th className="align-middle text-center">((гр.6-гр.2) : гр.2)</th>
       </tr>
 
       <tr>
-        <td className="text-center">1</td>
-        <td className="text-center">2</td>
-        <td className="text-center">3</td>
-        <td className="text-center">4</td>
-        <td className="text-center">5</td>
-        <td className="text-center">6</td>
-        <td className="text-center">7</td>
-        <td className="text-center">8</td>
+        {columns.map(col => <td className="text-center" key={col}>{col}</td>)}
       </tr>
     </thead>
   );
 }
 
-const PropertyStructureTableBody: React.FC = () => {
+// PropertyStructureRow ===========================================================================
+
+interface TableRowProps {
+  rowData: IPropertyStructureRow
+}
+
+function toPercentSrtring(val: number): string {
+  return isNaN(val) ? 'x' : (val * 100).toFixed(2) + '%';
+}
+
+const PropertyStructureRow: React.FC<TableRowProps> = ({ rowData }) => {
+  return (
+    <tr>
+      <td>{rowData.name}</td>
+      {rowData.values.map((val, idx) => <td className="align-middle text-center" key={idx}>{val}</td>)}
+      <td className="align-middle text-center">{toPercentSrtring(rowData.weight.start)}</td>
+      <td className="align-middle text-center">{toPercentSrtring(rowData.weight.end)}</td>
+      <td className="align-middle text-center">{rowData.change.absolute}</td>
+      <td className="align-middle text-center">{toPercentSrtring(rowData.change.relative)}</td>
+    </tr>
+  );
+}
+
+// PropertyStructureTableBody =====================================================================
+
+interface TableBodyProps {
+  propertyStructure: IPropertyStructure
+}
+
+const PropertyStructureTableBody: React.FC<TableBodyProps> = ({ propertyStructure }) => {
   return (
     <tbody>
       <tr>
         <td className="font-weight-bold" colSpan={8}>Актив</td>
       </tr>
 
-      {/* ========================================================== */}
-      <tr>
-        <td>1. Внеоборотные активы</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      {propertyStructure.active.map((row, idx) => <PropertyStructureRow rowData={row} key={idx} />)}
 
-      <tr>
-        <td>в том числе: основные средства</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr>
-        <td>нематериальные активы</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      {/* ========================================================== */}
-      <tr>
-        <td>2. Оборотные, всего</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr>
-        <td>в том числе: запасы</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr>
-        <td>дебиторская задолженность</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr>
-        <td>денежные средства и краткосрочные финансовые вложения</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      {/* ========================================================== */}
       <tr>
         <td className="font-weight-bold" colSpan={8}>Пассив</td>
       </tr>
-      <tr>
-        <td>1. Собственный капитал </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
 
-      {/* ========================================================== */}
-      <tr>
-        <td>2. Долгосрочные обязательства, всего </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      {propertyStructure.passive.map((row, idx) => <PropertyStructureRow rowData={row} key={idx} />)}
 
-      <tr>
-        <td>в том числе: заемные средства</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      {/* ========================================================== */}
-      <tr>
-        <td>3. Краткосрочные обязательства*, всего</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      {/* ========================================================== */}
-      <tr className="font-weight-bold">
-        <td>Валюта баланса</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      <PropertyStructureRow rowData={propertyStructure.balanceTotal} />
 
     </tbody>
   );
 }
 
-const PropertyStructureTable: React.FC = () => {
+// PropertyStructureTable =========================================================================
+
+interface PropertyStructureTableProps {
+  propertyStructure: IPropertyStructure,
+  analyticalPeriod: {
+    start: number,
+    end: number
+  }
+}
+
+const PropertyStructureTable: React.FC<PropertyStructureTableProps> = ({ propertyStructure, analyticalPeriod }) => {
   return (
     <table className="table table-sm table-bordered table-hover small">
-      <PropertyStructureTableHead />
-      <PropertyStructureTableBody />
+      <PropertyStructureTableHead period={analyticalPeriod} />
+      <PropertyStructureTableBody propertyStructure={propertyStructure} />
     </table>
   );
 }
