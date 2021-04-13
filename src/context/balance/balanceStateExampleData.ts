@@ -38,7 +38,7 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Основные средства",
                 code: 1150,
-                values: [10716, 10462, 7612]
+                values: [7612, 10462, 10716]
               },
               {
                 name: "Доходные вложения в материальные ценности",
@@ -73,7 +73,7 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Запасы",
                 code: 1210,
-                values: [35, 53, 53]
+                values: [53, 53, 35]
               },
               {
                 name: "Налог на добавленную стоимость по приобретенным ценностям",
@@ -83,7 +83,7 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Дебиторская задолженность",
                 code: 1230,
-                values: [7608, 5599, 4653]
+                values: [4653, 5599, 7608]
               },
               {
                 name: "Финансовые вложения (за исключением денежных эквивалентов)",
@@ -93,12 +93,12 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Денежные средства и денежные эквиваленты",
                 code: 1250,
-                values: [570, 1874, 365]
+                values: [365, 1874, 570]
               },
               {
                 name: "Прочие оборотные активы",
                 code: 1260,
-                values: [5, 10, 126]
+                values: [126, 10, 5]
               },
             ],
             total: {
@@ -146,7 +146,7 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Нераспределенная прибыль (непокрытый убыток)",
                 code: 1370,
-                values: [7181, 6627, 5113]
+                values: [5113, 6627, 7181]
               },
             ],
             total: {
@@ -191,17 +191,17 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Заемные средства",
                 code: 1510,
-                values: [340, 5940, 733]
+                values: [733, 5940, 340]
               },
               {
                 name: "Кредиторская задолженность",
                 code: 1520,
-                values: [1126, 1091, 2394]
+                values: [2394, 1091, 1126]
               },
               {
                 name: "Доходы будущих периодов",
                 code: 1530,
-                values: [1066, 619, 848]
+                values: [848, 619, 1066]
               },
               {
                 name: "Оценочные обязательства",
@@ -211,7 +211,7 @@ export default function getExampleState(): IBalanceState {
               {
                 name: "Прочие краткосрочные обязательства",
                 code: 1550,
-                values: [5500, 0, 0]
+                values: [0, 0, 5500]
               },
             ],
             total: {

@@ -22,19 +22,16 @@ export default function preparePropertyStructure(state: IBalanceState): IPropert
 }
 
 function valuesToPropertyStructureRow(name: string, values: number[], total: number[]): IPropertyStructureRow {
-  let newValues = [...values].reverse();
-  let newTotal = [...total].reverse();
-
   return {
     name,
-    values: newValues,
+    values,
     weight: {
-      start: newValues[0] / newTotal[0],
-      end: newValues[newValues.length - 1] / newTotal[newTotal.length - 1]
+      start: values[0] / total[0],
+      end: values[values.length - 1] / total[total.length - 1]
     },
     change: {
-      absolute: newValues[newValues.length - 1] - newValues[0],
-      relative: (newValues[newValues.length - 1] - newValues[0]) / newValues[0]
+      absolute: values[values.length - 1] - values[0],
+      relative: (values[values.length - 1] - values[0]) / values[0]
     }
   }
 }

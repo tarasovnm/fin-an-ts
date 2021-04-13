@@ -74,11 +74,20 @@ interface ISectoinRowProps {
 }
 
 const SectoinRow: React.FC<ISectoinRowProps> = ({ sectionStr, cellValueChanged }) => {
+  let reversedValues = [...sectionStr.values].reverse();
+  let indexes: number[] = [];
+  let i: number = reversedValues.length - 1;
+
+  while (i >= 0) {
+    indexes.push(i);
+    i--;
+  }
+
   return (
     <tr>
       <td>{sectionStr.name}</td>
       <td className="align-middle text-center">{sectionStr.code}</td>
-      {sectionStr.values.map((val, idx) => <Cell value={val} key={idx} code={sectionStr.code} index={idx} cellValueChanged={cellValueChanged} />)}
+      {reversedValues.map((val, idx) => <Cell value={val} key={idx} code={sectionStr.code} index={indexes[idx]} cellValueChanged={cellValueChanged} />)}
     </tr>
   );
 }
@@ -87,16 +96,17 @@ const SectoinRow: React.FC<ISectoinRowProps> = ({ sectionStr, cellValueChanged }
 
 interface ISectionTotalProps {
   totalData: IBalanceTotal,
-  sectionId: string,
-  years: number[]
+  sectionId: string
 }
 
-const SectionTotal: React.FC<ISectionTotalProps> = ({ totalData, sectionId, years }) => {
+const SectionTotal: React.FC<ISectionTotalProps> = ({ totalData, sectionId }) => {
+  let newTotalData = [...totalData.values].reverse();
+
   return (
     <tr>
       <td>ИТОГО по разделу {sectionId}</td>
       <td className="text-center">{totalData.code}</td>
-      {totalData.values.map((val, idx) => <td className="text-center" key={idx}>{val}</td>)}
+      {newTotalData.map((val, idx) => <td className="text-center" key={idx}>{val}</td>)}
     </tr>
   );
 }
@@ -116,7 +126,7 @@ const BalanceSection: React.FC<IBalanceSectionProps> = ({ sectionData, years, ce
         <td className="font-weight-bold" colSpan={years.length + 2}>{sectionData.id + '. ' + sectionData.name}</td>
       </tr>
       {sectionData.data.map(sectionStr => <SectoinRow sectionStr={sectionStr} key={sectionStr.code} cellValueChanged={cellValueChanged} />)}
-      <SectionTotal totalData={sectionData.total} sectionId={sectionData.id} years={years} />
+      <SectionTotal totalData={sectionData.total} sectionId={sectionData.id} />
     </>
   );
 }
@@ -184,6 +194,8 @@ const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analy
     years.push(analysisPeriod.start + i);
     i--;
   }
+
+  console.log(tableData);
 
   return (
     <table className="table table-sm table-bordered table-hover small">
