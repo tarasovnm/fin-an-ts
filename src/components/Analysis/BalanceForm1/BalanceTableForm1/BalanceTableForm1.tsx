@@ -195,8 +195,6 @@ const BalanceTableForm1: React.FC<IBalanceTableForm1Props> = ({ tableData, analy
     i--;
   }
 
-  console.log(tableData);
-
   return (
     <table className="table table-sm table-bordered table-hover small">
       <TableHeader years={years} />

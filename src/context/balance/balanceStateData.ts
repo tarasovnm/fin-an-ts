@@ -333,3 +333,28 @@ function balanceDeepCopy(balance: IBalanceTableState) {
   let newBalance: IBalanceTableState = JSON.parse(JSON.stringify(balance))
   return newBalance;
 }
+
+export function getValuesByCode(balance: IBalanceTableState, code: number): number[] {
+  const keys: string[] = Object.keys(balance);
+  let result: number[] = [NaN, NaN, NaN];
+
+  keys.forEach((part) => {
+    balance[part].sections.forEach(section => {
+      section.data.forEach(row => {
+        if (row.code === code) {
+          result = [...row.values];
+        }
+      });
+
+      if (section.total.code === code) {
+        result = [...section.total.values];
+      }
+    });
+
+    if (balance[part].total.code === code) {
+      result = [...balance[part].total.values];
+    }
+  });
+
+  return result;
+}

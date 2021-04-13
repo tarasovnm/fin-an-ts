@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPropertyStructure, IPropertyStructureRow } from '../../../../../context/interfaces';
+import { IPropertyStructure, IValuesAndChange } from '../../../../../context/interfaces';
 
 // PropertyStructureTableHead =====================================================================
 
@@ -55,7 +55,7 @@ const PropertyStructureTableHead: React.FC<TableHeadProps> = ({ period }) => {
 // PropertyStructureRow ===========================================================================
 
 interface TableRowProps {
-  rowData: IPropertyStructureRow
+  rowData: IValuesAndChange
 }
 
 function toPercentSrtring(val: number): string {

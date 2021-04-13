@@ -45,7 +45,7 @@ export interface IAnalyticalBalance {
   }
 }
 
-export interface IPropertyStructureRow {
+export interface IValuesAndChange {
   name: string,
   values: number[],
   weight: {
@@ -59,9 +59,13 @@ export interface IPropertyStructureRow {
 }
 
 export interface IPropertyStructure {
-  active: IPropertyStructureRow[],
-  passive: IPropertyStructureRow[],
-  balanceTotal: IPropertyStructureRow
+  active: IValuesAndChange[],
+  passive: IValuesAndChange[],
+  balanceTotal: IValuesAndChange
+}
+
+export interface INetAssets {
+  indicators: IValuesAndChange[]
 }
 
 export interface IReport {
