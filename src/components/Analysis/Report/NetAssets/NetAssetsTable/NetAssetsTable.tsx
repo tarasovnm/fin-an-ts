@@ -1,6 +1,25 @@
 import React from 'react';
+import { INetAssets, IValuesAndChange } from '../../../../../context/interfaces';
 
-const NetAssetsTableHead: React.FC = () => {
+interface TableHeadProps {
+  period: {
+    start: number,
+    end: number
+  }
+}
+
+const NetAssetsTableHead: React.FC<TableHeadProps> = ({ period }) => {
+
+  let years: number[] = [];
+  for (let i = period.start; i <= period.end; i++) {
+    years.push(i);
+  }
+
+  let columns: number[] = [];
+  for (let i = 0; i <= years.length + 4; i++) {
+    columns.push(i + 1);
+  }
+
   return (
     <thead>
       <tr>
@@ -17,72 +36,70 @@ const NetAssetsTableHead: React.FC = () => {
       </tr>
 
       <tr>
-        <th className="align-middle text-center">31.12.2017</th>
-        <th className="align-middle text-center">31.12.2018</th>
-        <th className="align-middle text-center">31.12.2019</th>
-        <th className="align-middle text-center">на начало анализируемого периода (31.12.2017)</th>
-        <th className="align-middle text-center">на конец анализируемого периода (31.12.2019)</th>
+        {years.map(year => <th className="align-middle text-center" key={year}>{'31.12.' + year}</th>)}
+        <th className="align-middle text-center">на начало анализируемого периода ({'31.12.' + period.start})</th>
+        <th className="align-middle text-center">на конец анализируемого периода ({'31.12.' + period.end})</th>
         <th className="align-middle text-center">(гр.6-гр.2)</th>
         <th className="align-middle text-center">((гр.6-гр.2) : гр.2)</th>
       </tr>
 
       <tr>
-        <td className="text-center">1</td>
-        <td className="text-center">2</td>
-        <td className="text-center">3</td>
-        <td className="text-center">4</td>
-        <td className="text-center">5</td>
-        <td className="text-center">6</td>
-        <td className="text-center">7</td>
-        <td className="text-center">8</td>
+        {columns.map(col => <td className="text-center" key={col}>{col}</td>)}
       </tr>
     </thead>
   );
 }
 
-const NetAssetsTableBody: React.FC = () => {
+// PropertyStructureRow ===========================================================================
+
+interface TableRowProps {
+  rowData: IValuesAndChange
+}
+
+function toPercentSrtring(val: number): string {
+  return isNaN(val) ? 'x' : (val * 100).toFixed(2) + '%';
+}
+
+const NetAssetsRow: React.FC<TableRowProps> = ({ rowData }) => {
+  return (
+    <tr>
+      <td>{rowData.name}</td>
+      {rowData.values.map((val, idx) => <td className="align-middle text-center" key={idx}>{val}</td>)}
+      <td className="align-middle text-center">{toPercentSrtring(rowData.weight.start)}</td>
+      <td className="align-middle text-center">{toPercentSrtring(rowData.weight.end)}</td>
+      <td className="align-middle text-center">{rowData.change.absolute}</td>
+      <td className="align-middle text-center">{toPercentSrtring(rowData.change.relative)}</td>
+    </tr>
+  );
+}
+
+// PropertyStructureTableBody =====================================================================
+
+interface NetAssetsTableBodyProps {
+  tableData: INetAssets
+}
+
+const NetAssetsTableBody: React.FC<NetAssetsTableBodyProps> = ({ tableData }) => {
   return (
     <tbody>
-      <tr>
-        <td>1.Чистые активы</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>2. Уставный капитал</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>3. Превышение чистых активов над уставным капиталом (стр.1-стр.2)</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      {tableData.indicators.map((indicator, idx) => <NetAssetsRow rowData={indicator} key={idx} />)}
     </tbody>
   );
 }
 
+interface NetAssetsTableProps {
+  netAssets: INetAssets,
+  analyticalPeriod: {
+    start: number,
+    end: number
+  }
+}
 
-const NetAssetsTable: React.FC = () => {
+const NetAssetsTable: React.FC<NetAssetsTableProps> = ({ netAssets, analyticalPeriod }) => {
   return (
     <table className="table table-sm table-bordered table-hover small">
-      <NetAssetsTableHead />
-      <NetAssetsTableBody />
+      <NetAssetsTableHead period={analyticalPeriod} />
+      <NetAssetsTableBody tableData={netAssets} />
     </table>
   );
 }

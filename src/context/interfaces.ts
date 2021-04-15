@@ -70,7 +70,8 @@ export interface INetAssets {
 
 export interface IReport {
   analyticalBalance: IAnalyticalBalance,
-  propertyStructure: IPropertyStructure
+  propertyStructure: IPropertyStructure,
+  netAssets: INetAssets
 }
 
 // Интерфесы общего стейта и контекста ======================================================

@@ -16,7 +16,7 @@ const Report: React.FC = () => {
   return (
     <div>
       <PropertyStructure propertyStructure={report?.propertyStructure} analyticalPeriod={period} />
-      <NetAssets />
+      <NetAssets netAssets={report?.netAssets} analyticalPeriod={period} />
       <FinancialStability />
       <AnalyticalBalance analyticalData={report?.analyticalBalance} analyticalPeriod={period} />
     </div>

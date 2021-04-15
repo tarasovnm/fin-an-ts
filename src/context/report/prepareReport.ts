@@ -10,6 +10,7 @@ export default function prepareReport(state: IBalanceState): IReport {
 
   return {
     analyticalBalance,
-    propertyStructure
+    propertyStructure,
+    netAssets
   }
 }
