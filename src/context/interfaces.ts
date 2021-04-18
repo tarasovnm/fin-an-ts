@@ -68,6 +68,17 @@ export interface INetAssets {
   indicators: IValuesAndChange[]
 }
 
+export interface IFinStabilityIndicator {
+  id: number
+  name: string,
+  values: number[],
+  description: string
+}
+
+export interface IFinStability {
+  indicators: IFinStabilityIndicator[]
+}
+
 export interface IReport {
   analyticalBalance: IAnalyticalBalance,
   propertyStructure: IPropertyStructure,
