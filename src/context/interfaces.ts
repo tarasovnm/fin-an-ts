@@ -82,7 +82,8 @@ export interface IFinStability {
 export interface IReport {
   analyticalBalance: IAnalyticalBalance,
   propertyStructure: IPropertyStructure,
-  netAssets: INetAssets
+  netAssets: INetAssets,
+  finStability: IFinStability
 }
 
 // Интерфесы общего стейта и контекста ======================================================

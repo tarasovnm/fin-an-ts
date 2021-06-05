@@ -8,11 +8,13 @@ export default function prepareReport(state: IBalanceState): IReport {
   let analyticalBalance = prepareAnalyticalBalance(state);
   let propertyStructure = preparePropertyStructure(state);
   let netAssets = prepareNetAssets(state);
-  prepareFinStability(state);
+  let finStability = prepareFinStability(state)
+  console.log(finStability);
 
   return {
     analyticalBalance,
     propertyStructure,
-    netAssets
+    netAssets,
+    finStability
   }
 }
