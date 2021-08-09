@@ -5,10 +5,23 @@ import Period from './Period/Period';
 
 const Options: React.FC = () => {
 
-  const { companyName, period, companyNameChanged, changePeriodStart, changePeriodEnd, clearInputData, enterExampleData, prepareReport } = useContext(BalanceContext) as IBalanceContextInterface;
+  const { companyName, period, companyNameChanged, changePeriodStart, changePeriodEnd } = useContext(BalanceContext) as IBalanceContextInterface;
 
   const onCompanyNameChanged = (e: any) => {
     companyNameChanged(e.target.value);
+  }
+
+  // temp functions
+  const enterExampleData = () => {
+    console.log('Ввести данные компании-примера');
+  }
+
+  const prepareReport = () => {
+    console.log('Подготовить отчет');
+  }
+
+  const clearInputData = () => {
+    console.log('Очистить введенные данные');
   }
 
   return (
